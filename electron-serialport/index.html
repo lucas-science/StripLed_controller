@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>LED CONTROLLER</title>
+    <link rel="stylesheet" type="text/css" href="./style/main.css">
+</head>
+
+<body>
+    <div class="App">
+        <div class="top-bar">
+            <input type="button" id="CLOSE" class="close_button">
+        </div>
+        <div class="content">
+            <input type="text" placeholder="Type " id="color_input">
+            <input type="button" id="color_input_submit">
+            <br>
+            <input type="range" min="0" max="255" value="122.5" class="slider" id="RED_slider">
+            <input type="range" min="0" max="255" value="12.5" class="slider" id="GREEN_slider">
+            <input type="range" min="0" max="255" value="12.5" class="slider" id="BLUE_slider">
+        </div>
+    </div>
+</body>
+
+<script src="./renderer.js"></script>
+
+</html>

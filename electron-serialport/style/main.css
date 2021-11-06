@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.App {
+    background-color: rgb(7, 206, 130);
+    display: flex;
+    flex-direction: column;
+    transform: scale(0.94);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.close_button {
+    margin-left: 5px;
+    margin-top: 5px;
+    -webkit-app-region: no-drag
+}
+
+.top-bar {
+    height: 7.5vh;
+    width: 100%;
+    background-color: chocolate;
+    -webkit-app-region: drag
+}
+
+.content {
+    height: 92.5vh;
+    width: 100%;
+    background-color: cornflowerblue;
+    -webkit-app-region: no-drag
+}
