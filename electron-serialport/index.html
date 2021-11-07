@@ -10,19 +10,43 @@
 <body>
     <div class="App">
         <div class="top-bar">
-            <input type="button" id="CLOSE" class="close_button">
+            <button type="button" id="CLOSE" class="close_button">
+                <img src="img/croix.svg" class="croix">
+            </button>
         </div>
         <div class="content">
-            <input type="text" placeholder="Type " id="color_input">
-            <input type="button" id="color_input_submit">
-            <br>
-            <input type="range" min="0" max="255" value="122.5" class="slider" id="RED_slider">
-            <input type="range" min="0" max="255" value="12.5" class="slider" id="GREEN_slider">
-            <input type="range" min="0" max="255" value="12.5" class="slider" id="BLUE_slider">
+            <div class="mode">
+                <div class="preview_color_1" id="PREVIEW_COLOR_1"></div>
+                <input type="range" min="0" max="255" value="122.5" class="slider" id="RED_slider">
+                <input type="range" min="0" max="255" value="12.5" class="slider" id="GREEN_slider">
+                <input type="range" min="0" max="255" value="12.5" class="slider" id="BLUE_slider">
+                <input type="button" id="color_input_submit" value="Submit values">
+            </div>
+            <div class="mode">
+                <div class="preview_color_1" id="PREVIEW_COLOR_2"></div>
+                <input type="range" min="0" max="255" value="122.5" class="slider" id="RED_slider">
+                <input type="range" min="0" max="255" value="12.5" class="slider" id="GREEN_slider">
+                <input type="range" min="0" max="255" value="12.5" class="slider" id="BLUE_slider">
+                <input type="button" id="color_input_submit" value="Submit values">
+            </div>
+            <div class="mode">
+                <div class="preview_color_1" id="PREVIEW_COLOR_3"></div>
+                <input type="range" min="0" max="255" value="122.5" class="slider" id="RED_slider">
+                <input type="range" min="0" max="255" value="12.5" class="slider" id="GREEN_slider">
+                <input type="range" min="0" max="255" value="12.5" class="slider" id="BLUE_slider">
+                <input type="button" id="color_input_submit" value="Submit values">
+            </div>
+            <div class="mode">
+                <div class="preview_color_1" id="PREVIEW_COLOR_4"></div>
+                <input type="range" min="0" max="255" value="122.5" class="slider" id="RED_slider">
+                <input type="range" min="0" max="255" value="12.5" class="slider" id="GREEN_slider">
+                <input type="range" min="0" max="255" value="12.5" class="slider" id="BLUE_slider">
+                <input type="button" id="color_input_submit" value="Submit values">
+            </div>
         </div>
     </div>
 </body>
 
-<script src="./renderer.js"></script>
+<script src="./assets/renderer.js"></script>
 
 </html>

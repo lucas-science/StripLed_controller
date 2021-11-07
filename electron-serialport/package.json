@@ -28,9 +28,9 @@
     },
     "dependencies": {
         "express": "^4.17.1",
+        "fs": "0.0.1-security",
         "serialport": "^9.2.0",
         "tableify": "^1.1.0"
     },
     "productName": "Electron tutorial app"
-
 }

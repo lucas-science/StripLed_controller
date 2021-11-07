@@ -4,7 +4,7 @@ body {
 }
 
 .App {
-    background-color: rgb(7, 206, 130);
+    background-color: #0B0C14;
     display: flex;
     flex-direction: column;
     transform: scale(0.94);
@@ -15,19 +15,70 @@ body {
 .close_button {
     margin-left: 5px;
     margin-top: 5px;
-    -webkit-app-region: no-drag
+    -webkit-app-region: no-drag;
+    margin-right: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0);
+    text-decoration: none;
+    border: none;
+    padding: 5px 10px 5px 10px;
+}
+
+.croix {
+    width: 15px;
+    height: 15px;
+    transition-duration: 0.25s;
+    opacity: 0.75;
+}
+
+.close_button:hover .croix {
+    transform: scale(1.1);
+    cursor: pointer;
 }
 
 .top-bar {
     height: 7.5vh;
     width: 100%;
-    background-color: chocolate;
-    -webkit-app-region: drag
+    background-color: #0B0C14;
+    -webkit-app-region: drag;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .content {
-    height: 92.5vh;
+    margin-top: 2vh;
+    height: 90.5vh;
     width: 100%;
-    background-color: cornflowerblue;
-    -webkit-app-region: no-drag
+    background-color: #0B0C14;
+    -webkit-app-region: no-drag;
+    display: flex;
+    justify-content: space-around;
+}
+
+#color_input_submit {
+    margin-top: 15px;
+}
+
+.mode {
+    padding: 10px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: violet;
+    height: 30%;
+    border-radius: 10px;
+    background-color: transparent;
+    border: 2px solid #7e7e7e38;
+    justify-content: space-around;
+}
+
+.preview_color_1 {
+    background-color: whitesmoke;
+    width: 30%;
+    height: 20%;
+    border-radius: 5px;
+    margin-bottom: 15px;
 }
