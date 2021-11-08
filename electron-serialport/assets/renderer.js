@@ -11,44 +11,144 @@ const fs = require("fs");
 const express = require('express');
 const app = express();
 
-const Color_Input_Button = document.getElementById("color_input_submit")
 const CLOSE_BUTTON = document.getElementById("CLOSE")
+const Color_Input_Button1 = document.getElementById("color_input_submit1")
+const Color_Input_Button2 = document.getElementById("color_input_submit2")
+const Color_Input_Button3 = document.getElementById("color_input_submit3")
+const Color_Input_Button4 = document.getElementById("color_input_submit4")
 
-
-let REDslider = document.getElementById("RED_slider");
-let GREENslider = document.getElementById("GREEN_slider");
-let BLUEslider = document.getElementById("BLUE_slider");
+let REDslider1 = document.getElementById("RED_slider1");
+let GREENslider1 = document.getElementById("GREEN_slider1");
+let BLUEslider1 = document.getElementById("BLUE_slider1");
+let REDslider2 = document.getElementById("RED_slider2");
+let GREENslider2 = document.getElementById("GREEN_slider2");
+let BLUEslider2 = document.getElementById("BLUE_slider2");
+let REDslider3 = document.getElementById("RED_slider3");
+let GREENslider3 = document.getElementById("GREEN_slider3");
+let BLUEslider3 = document.getElementById("BLUE_slider3");
+let REDslider4 = document.getElementById("RED_slider4");
+let GREENslider4 = document.getElementById("GREEN_slider4");
+let BLUEslider4 = document.getElementById("BLUE_slider4");
 
 let preview1 = document.getElementById("PREVIEW_COLOR_1")
+let preview2 = document.getElementById("PREVIEW_COLOR_2")
+let preview3 = document.getElementById("PREVIEW_COLOR_3")
+let preview4 = document.getElementById("PREVIEW_COLOR_4")
 
 // get data of json
 let SettingDataRaw = fs.readFileSync("./settings/mode.json");
 let SettingData = JSON.parse(SettingDataRaw);
 
 // Get hold value in json file
-let REDslider_Value = SettingData.mode1.RED
-let Greenslider_Value = SettingData.mode1.GREEN
-let Blueslider_Value = SettingData.mode1.BLUE
-REDslider.value = REDslider_Value
-GREENslider.value = Greenslider_Value
-BLUEslider.value = Blueslider_Value
+let REDslider_Value1 = SettingData.mode1.RED
+let Greenslider_Value1 = SettingData.mode1.GREEN
+let Blueslider_Value1 = SettingData.mode1.BLUE
+let REDslider_Value2 = SettingData.mode2.RED
+let Greenslider_Value2 = SettingData.mode2.GREEN
+let Blueslider_Value2 = SettingData.mode2.BLUE
+let REDslider_Value3 = SettingData.mode3.RED
+let Greenslider_Value3 = SettingData.mode3.GREEN
+let Blueslider_Value3 = SettingData.mode3.BLUE
+let REDslider_Value4 = SettingData.mode4.RED
+let Greenslider_Value4 = SettingData.mode4.GREEN
+let Blueslider_Value4 = SettingData.mode4.BLUE
 
-preview1.style = `background-color:rgb(${REDslider_Value},${Greenslider_Value},${Blueslider_Value});`
+REDslider1.value = REDslider_Value1
+GREENslider1.value = Greenslider_Value1
+BLUEslider1.value = Blueslider_Value1
+REDslider2.value = REDslider_Value2
+GREENslider2.value = Greenslider_Value2
+BLUEslider2.value = Blueslider_Value2
+REDslider3.value = REDslider_Value3
+GREENslider3.value = Greenslider_Value3
+BLUEslider3.value = Blueslider_Value3
+REDslider4.value = REDslider_Value4
+GREENslider4.value = Greenslider_Value4
+BLUEslider4.value = Blueslider_Value4
 
-REDslider.oninput = function() {
-    REDslider_Value = this.value;
-    preview1.style = `background-color:rgb(${REDslider_Value},${Greenslider_Value},${Blueslider_Value});`
+preview1.style = `background-color:rgb(${REDslider_Value1},${Greenslider_Value1},${Blueslider_Value1});`
+preview2.style = `background-color:rgb(${REDslider_Value2},${Greenslider_Value2},${Blueslider_Value2});`
+preview3.style = `background-color:rgb(${REDslider_Value3},${Greenslider_Value3},${Blueslider_Value3});`
+preview4.style = `background-color:rgb(${REDslider_Value4},${Greenslider_Value4},${Blueslider_Value4});`
+
+let Opacityslider = document.getElementById("Opacity");
+let Opacityslider_Value
+Opacityslider.value = SettingData.opacity
+
+// on change SLIDER 1
+REDslider1.oninput = function() {
+    REDslider_Value1 = this.value;
+    preview1.style = `background-color:rgb(${REDslider_Value1},${Greenslider_Value1},${Blueslider_Value1});`
 }
-GREENslider.oninput = function() {
-    Greenslider_Value = this.value;
-    preview1.style = `background-color:rgb(${REDslider_Value},${Greenslider_Value},${Blueslider_Value});`
+GREENslider1.oninput = function() {
+    Greenslider_Value1 = this.value;
+    preview1.style = `background-color:rgb(${REDslider_Value1},${Greenslider_Value1},${Blueslider_Value1});`
 }
-BLUEslider.oninput = function() {
-    Blueslider_Value = this.value;
-    preview1.style = `background-color:rgb(${REDslider_Value},${Greenslider_Value},${Blueslider_Value});`
+BLUEslider1.oninput = function() {
+        Blueslider_Value1 = this.value;
+        preview1.style = `background-color:rgb(${REDslider_Value1},${Greenslider_Value1},${Blueslider_Value1});`
+    }
+    // on change SLIDER 2
+REDslider2.oninput = function() {
+    REDslider_Value2 = this.value;
+    preview2.style = `background-color:rgb(${REDslider_Value2},${Greenslider_Value2},${Blueslider_Value2});`
+}
+GREENslider2.oninput = function() {
+    Greenslider_Value2 = this.value;
+    preview2.style = `background-color:rgb(${REDslider_Value2},${Greenslider_Value2},${Blueslider_Value2});`
+}
+BLUEslider2.oninput = function() {
+        Blueslider_Value2 = this.value;
+        preview2.style = `background-color:rgb(${REDslider_Value2},${Greenslider_Value2},${Blueslider_Value2});`
+    }
+    // on change SLIDER 3
+REDslider3.oninput = function() {
+    REDslider_Value3 = this.value;
+    preview3.style = `background-color:rgb(${REDslider_Value3},${Greenslider_Value3},${Blueslider_Value3});`
+}
+GREENslider3.oninput = function() {
+    Greenslider_Value3 = this.value;
+    preview3.style = `background-color:rgb(${REDslider_Value3},${Greenslider_Value3},${Blueslider_Value3});`
+}
+BLUEslider3.oninput = function() {
+        Blueslider_Value3 = this.value;
+        preview3.style = `background-color:rgb(${REDslider_Value3},${Greenslider_Value3},${Blueslider_Value3});`
+    }
+    // on change SLIDER 4
+REDslider4.oninput = function() {
+    REDslider_Value4 = this.value;
+    preview4.style = `background-color:rgb(${REDslider_Value4},${Greenslider_Value4},${Blueslider_Value4});`
+}
+GREENslider4.oninput = function() {
+    Greenslider_Value4 = this.value;
+    preview4.style = `background-color:rgb(${REDslider_Value4},${Greenslider_Value4},${Blueslider_Value4});`
+}
+BLUEslider4.oninput = function() {
+    Blueslider_Value4 = this.value;
+    preview4.style = `background-color:rgb(${REDslider_Value4},${Greenslider_Value4},${Blueslider_Value4});`
 }
 
+Opacityslider.oninput = function() {
+    Opacityslider_Value = this.value;
+    preview1.style = `background-color:rgba(${REDslider_Value1},${Greenslider_Value1},${Blueslider_Value1},${Opacityslider_Value/100});`
+    preview2.style = `background-color:rgba(${REDslider_Value2},${Greenslider_Value2},${Blueslider_Value2},${Opacityslider_Value/100});`
+    preview3.style = `background-color:rgba(${REDslider_Value3},${Greenslider_Value3},${Blueslider_Value3},${Opacityslider_Value/100});`
+    preview4.style = `background-color:rgba(${REDslider_Value4},${Greenslider_Value4},${Blueslider_Value4},${Opacityslider_Value/100});`
 
+    data = {
+        "TITLE": "OPACITY",
+        "OPACITY": Opacityslider_Value
+    }
+    whatWrite(data)
+    SettingData.opacity = Opacityslider_Value
+    let newData = JSON.stringify(SettingData);
+    console.log(newData)
+
+    fs.writeFileSync("./settings/mode.json", newData, (err) => {
+        if (err) throw err;
+        console.log("New data added");
+    });
+}
 const port = new SerialPort("COM6", {
     baudRate: 9600
 })
@@ -58,23 +158,78 @@ port.on('data', function(data) {
     console.log('Data:', data.toString())
 })
 
-Color_Input_Button.addEventListener('click', () => {
-    data = {
-        "RED": REDslider_Value,
-        "GREEN": Greenslider_Value,
-        "BLUE": Blueslider_Value
-    }
-    whatWrite(data)
-    SettingData.mode1 = data
-    let newData = JSON.stringify(SettingData);
-    console.log(newData)
+Color_Input_Button1.addEventListener('click', () => {
+        data = {
+            "TITLE": "COLOR",
+            "RED": REDslider_Value1,
+            "GREEN": Greenslider_Value1,
+            "BLUE": Blueslider_Value1
+        }
+        whatWrite(data)
+        SettingData.mode1 = {
+            "RED": REDslider_Value1,
+            "GREEN": Greenslider_Value1,
+            "BLUE": Blueslider_Value1
+        }
+        let newData = JSON.stringify(SettingData);
+        console.log(newData)
 
-    fs.writeFileSync("./settings/mode.json", newData, (err) => {
-        if (err) throw err;
-        console.log("New data added");
-    });
+        fs.writeFileSync("./settings/mode.json", newData, (err) => {
+            if (err) throw err;
+            console.log("New data added");
+        });
+    })
+    /*
+    Color_Input_Button2.addEventListener('click', () => {
+        data = {
+            "RED": REDslider_Value2,
+            "GREEN": Greenslider_Value2,
+            "BLUE": Blueslider_Value2
+        }
+        whatWrite(data)
+        SettingData.mode2 = data
+        let newData = JSON.stringify(SettingData);
+        console.log(newData)
 
-})
+        fs.writeFileSync("./settings/mode.json", newData, (err) => {
+            if (err) throw err;
+            console.log("New data added");
+        });
+    })
+
+    Color_Input_Button3.addEventListener('click', () => {
+        data = {
+            "RED": REDslider_Value3,
+            "GREEN": Greenslider_Value3,
+            "BLUE": Blueslider_Value3
+        }
+        whatWrite(data)
+        SettingData.mode3 = data
+        let newData = JSON.stringify(SettingData);
+        console.log(newData)
+
+        fs.writeFileSync("./settings/mode.json", newData, (err) => {
+            if (err) throw err;
+            console.log("New data added");
+        });
+    })
+
+    Color_Input_Button4.addEventListener('click', () => {
+        data = {
+            "RED": REDslider_Value4,
+            "GREEN": Greenslider_Value4,
+            "BLUE": Blueslider_Value4
+        }
+        whatWrite(data)
+        SettingData.mode4 = data
+        let newData = JSON.stringify(SettingData);
+        console.log(newData)
+
+        fs.writeFileSync("./settings/mode.json", newData, (err) => {
+            if (err) throw err;
+            console.log("New data added");
+        });
+    }) */
 
 CLOSE_BUTTON.addEventListener('click', () => {
     ipc.sendSync('close', "close_app");
