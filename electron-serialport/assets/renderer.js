@@ -10,12 +10,71 @@ const fs = require("fs");
 
 const express = require('express');
 const app = express();
+let port
+    // get data of json
+let SettingDataRaw = fs.readFileSync("./settings/mode.json");
+let SettingData = JSON.parse(SettingDataRaw);
 
+const SelectPort = document.getElementById('SelectPort')
+
+SerialPort.list().then(ports => {
+    ports.forEach(port => {
+        console.log(port.path)
+        let opt = document.createElement('option');
+        opt.value = port.path;
+        opt.innerHTML = port.path;
+        SelectPort.appendChild(opt);
+    });
+    if (SelectPort.options.length - 1 < SettingData.PORT) {
+        SelectPort.options.selectedIndex = 0
+    } else {
+        SelectPort.options.selectedIndex = SettingData.PORT
+    }
+    // connect to the PORT
+    try {
+        port = new SerialPort(SelectPort.options[SettingData.PORT].text, {
+            baudRate: 9600
+        })
+        const lineStream = port.pipe(new Readline())
+
+        port.on('data', function(data) {
+            console.log('Data:', data.toString())
+        })
+    } catch (e) {
+        console.log(e)
+    }
+
+})
+
+SelectPort.addEventListener('change', () => {
+    SettingData.PORT = SelectPort.options.selectedIndex
+    let newData = JSON.stringify(SettingData);
+
+    fs.writeFileSync("./settings/mode.json", newData, (err) => {
+        if (err) throw err;
+        console.log("New data added");
+    });
+
+    try {
+        port = new SerialPort(SelectPort.options[SettingData.PORT].text, {
+            baudRate: 9600
+        })
+        const lineStream = port.pipe(new Readline())
+
+        port.on('data', function(data) {
+            console.log('Data:', data.toString())
+        })
+    } catch (e) {
+        console.log(e)
+    }
+})
+
+// get DOM elements
 const CLOSE_BUTTON = document.getElementById("CLOSE")
 const Color_Input_Button1 = document.getElementById("color_input_submit1")
 const Color_Input_Button2 = document.getElementById("color_input_submit2")
 const Color_Input_Button3 = document.getElementById("color_input_submit3")
-const Color_Input_Button4 = document.getElementById("color_input_submit4")
+
 
 let REDslider1 = document.getElementById("RED_slider1");
 let GREENslider1 = document.getElementById("GREEN_slider1");
@@ -26,18 +85,11 @@ let BLUEslider2 = document.getElementById("BLUE_slider2");
 let REDslider3 = document.getElementById("RED_slider3");
 let GREENslider3 = document.getElementById("GREEN_slider3");
 let BLUEslider3 = document.getElementById("BLUE_slider3");
-let REDslider4 = document.getElementById("RED_slider4");
-let GREENslider4 = document.getElementById("GREEN_slider4");
-let BLUEslider4 = document.getElementById("BLUE_slider4");
 
 let preview1 = document.getElementById("PREVIEW_COLOR_1")
 let preview2 = document.getElementById("PREVIEW_COLOR_2")
 let preview3 = document.getElementById("PREVIEW_COLOR_3")
-let preview4 = document.getElementById("PREVIEW_COLOR_4")
 
-// get data of json
-let SettingDataRaw = fs.readFileSync("./settings/mode.json");
-let SettingData = JSON.parse(SettingDataRaw);
 
 // Get hold value in json file
 let REDslider_Value1 = SettingData.mode1.RED
@@ -49,9 +101,6 @@ let Blueslider_Value2 = SettingData.mode2.BLUE
 let REDslider_Value3 = SettingData.mode3.RED
 let Greenslider_Value3 = SettingData.mode3.GREEN
 let Blueslider_Value3 = SettingData.mode3.BLUE
-let REDslider_Value4 = SettingData.mode4.RED
-let Greenslider_Value4 = SettingData.mode4.GREEN
-let Blueslider_Value4 = SettingData.mode4.BLUE
 
 REDslider1.value = REDslider_Value1
 GREENslider1.value = Greenslider_Value1
@@ -62,14 +111,10 @@ BLUEslider2.value = Blueslider_Value2
 REDslider3.value = REDslider_Value3
 GREENslider3.value = Greenslider_Value3
 BLUEslider3.value = Blueslider_Value3
-REDslider4.value = REDslider_Value4
-GREENslider4.value = Greenslider_Value4
-BLUEslider4.value = Blueslider_Value4
 
 preview1.style = `background-color:rgb(${REDslider_Value1},${Greenslider_Value1},${Blueslider_Value1});`
 preview2.style = `background-color:rgb(${REDslider_Value2},${Greenslider_Value2},${Blueslider_Value2});`
 preview3.style = `background-color:rgb(${REDslider_Value3},${Greenslider_Value3},${Blueslider_Value3});`
-preview4.style = `background-color:rgb(${REDslider_Value4},${Greenslider_Value4},${Blueslider_Value4});`
 
 let Opacityslider = document.getElementById("Opacity");
 let Opacityslider_Value
@@ -85,10 +130,11 @@ GREENslider1.oninput = function() {
     preview1.style = `background-color:rgb(${REDslider_Value1},${Greenslider_Value1},${Blueslider_Value1});`
 }
 BLUEslider1.oninput = function() {
-        Blueslider_Value1 = this.value;
-        preview1.style = `background-color:rgb(${REDslider_Value1},${Greenslider_Value1},${Blueslider_Value1});`
-    }
-    // on change SLIDER 2
+    Blueslider_Value1 = this.value;
+    preview1.style = `background-color:rgb(${REDslider_Value1},${Greenslider_Value1},${Blueslider_Value1});`
+}
+
+// on change SLIDER 2
 REDslider2.oninput = function() {
     REDslider_Value2 = this.value;
     preview2.style = `background-color:rgb(${REDslider_Value2},${Greenslider_Value2},${Blueslider_Value2});`
@@ -98,10 +144,11 @@ GREENslider2.oninput = function() {
     preview2.style = `background-color:rgb(${REDslider_Value2},${Greenslider_Value2},${Blueslider_Value2});`
 }
 BLUEslider2.oninput = function() {
-        Blueslider_Value2 = this.value;
-        preview2.style = `background-color:rgb(${REDslider_Value2},${Greenslider_Value2},${Blueslider_Value2});`
-    }
-    // on change SLIDER 3
+    Blueslider_Value2 = this.value;
+    preview2.style = `background-color:rgb(${REDslider_Value2},${Greenslider_Value2},${Blueslider_Value2});`
+}
+
+// on change SLIDER 3
 REDslider3.oninput = function() {
     REDslider_Value3 = this.value;
     preview3.style = `background-color:rgb(${REDslider_Value3},${Greenslider_Value3},${Blueslider_Value3});`
@@ -111,35 +158,23 @@ GREENslider3.oninput = function() {
     preview3.style = `background-color:rgb(${REDslider_Value3},${Greenslider_Value3},${Blueslider_Value3});`
 }
 BLUEslider3.oninput = function() {
-        Blueslider_Value3 = this.value;
-        preview3.style = `background-color:rgb(${REDslider_Value3},${Greenslider_Value3},${Blueslider_Value3});`
-    }
-    // on change SLIDER 4
-REDslider4.oninput = function() {
-    REDslider_Value4 = this.value;
-    preview4.style = `background-color:rgb(${REDslider_Value4},${Greenslider_Value4},${Blueslider_Value4});`
-}
-GREENslider4.oninput = function() {
-    Greenslider_Value4 = this.value;
-    preview4.style = `background-color:rgb(${REDslider_Value4},${Greenslider_Value4},${Blueslider_Value4});`
-}
-BLUEslider4.oninput = function() {
-    Blueslider_Value4 = this.value;
-    preview4.style = `background-color:rgb(${REDslider_Value4},${Greenslider_Value4},${Blueslider_Value4});`
+    Blueslider_Value3 = this.value;
+    preview3.style = `background-color:rgb(${REDslider_Value3},${Greenslider_Value3},${Blueslider_Value3});`
 }
 
+// change opacity of each preview
 Opacityslider.oninput = function() {
     Opacityslider_Value = this.value;
     preview1.style = `background-color:rgba(${REDslider_Value1},${Greenslider_Value1},${Blueslider_Value1},${Opacityslider_Value/100});`
     preview2.style = `background-color:rgba(${REDslider_Value2},${Greenslider_Value2},${Blueslider_Value2},${Opacityslider_Value/100});`
     preview3.style = `background-color:rgba(${REDslider_Value3},${Greenslider_Value3},${Blueslider_Value3},${Opacityslider_Value/100});`
-    preview4.style = `background-color:rgba(${REDslider_Value4},${Greenslider_Value4},${Blueslider_Value4},${Opacityslider_Value/100});`
+        /*
+        data = {
+            "TITLE": "OPACITY",
+            "OPACITY": Opacityslider_Value
+        }
+        whatWrite(data)*/
 
-    data = {
-        "TITLE": "OPACITY",
-        "OPACITY": Opacityslider_Value
-    }
-    whatWrite(data)
     SettingData.opacity = Opacityslider_Value
     let newData = JSON.stringify(SettingData);
     console.log(newData)
@@ -149,92 +184,91 @@ Opacityslider.oninput = function() {
         console.log("New data added");
     });
 }
-const port = new SerialPort("COM6", {
-    baudRate: 9600
-})
-const lineStream = port.pipe(new Readline())
 
-port.on('data', function(data) {
-    console.log('Data:', data.toString())
-})
+
+
+/**
+ * Send data of each mode trough PORT
+ */
 
 Color_Input_Button1.addEventListener('click', () => {
-        data = {
-            "TITLE": "COLOR",
-            "RED": REDslider_Value1,
-            "GREEN": Greenslider_Value1,
-            "BLUE": Blueslider_Value1
-        }
-        whatWrite(data)
-        SettingData.mode1 = {
-            "RED": REDslider_Value1,
-            "GREEN": Greenslider_Value1,
-            "BLUE": Blueslider_Value1
-        }
-        let newData = JSON.stringify(SettingData);
-        console.log(newData)
+    data = {
+        "TITLE": "COLOR",
+        "MODE": 1,
+        "RED": REDslider_Value1,
+        "GREEN": Greenslider_Value1,
+        "BLUE": Blueslider_Value1
+    }
+    whatWrite(data)
+    SettingData.mode1 = {
+        "RED": REDslider_Value1,
+        "GREEN": Greenslider_Value1,
+        "BLUE": Blueslider_Value1
+    }
+    let newData = JSON.stringify(SettingData);
+    console.log(newData)
 
-        fs.writeFileSync("./settings/mode.json", newData, (err) => {
-            if (err) throw err;
-            console.log("New data added");
-        });
-    })
-    /*
-    Color_Input_Button2.addEventListener('click', () => {
-        data = {
-            "RED": REDslider_Value2,
-            "GREEN": Greenslider_Value2,
-            "BLUE": Blueslider_Value2
-        }
-        whatWrite(data)
-        SettingData.mode2 = data
-        let newData = JSON.stringify(SettingData);
-        console.log(newData)
+    fs.writeFileSync("./settings/mode.json", newData, (err) => {
+        if (err) throw err;
+        console.log("New data added");
+    });
+})
 
-        fs.writeFileSync("./settings/mode.json", newData, (err) => {
-            if (err) throw err;
-            console.log("New data added");
-        });
-    })
+Color_Input_Button2.addEventListener('click', () => {
+    data = {
+        "TITLE": "COLOR",
+        "MODE": 2,
+        "RED": REDslider_Value2,
+        "GREEN": Greenslider_Value2,
+        "BLUE": Blueslider_Value2
+    }
+    whatWrite(data)
+    SettingData.mode2 = {
+        "RED": REDslider_Value2,
+        "GREEN": Greenslider_Value2,
+        "BLUE": Blueslider_Value2
+    }
+    let newData = JSON.stringify(SettingData);
+    console.log(newData)
 
-    Color_Input_Button3.addEventListener('click', () => {
-        data = {
-            "RED": REDslider_Value3,
-            "GREEN": Greenslider_Value3,
-            "BLUE": Blueslider_Value3
-        }
-        whatWrite(data)
-        SettingData.mode3 = data
-        let newData = JSON.stringify(SettingData);
-        console.log(newData)
+    fs.writeFileSync("./settings/mode.json", newData, (err) => {
+        if (err) throw err;
+        console.log("New data added");
+    });
+})
 
-        fs.writeFileSync("./settings/mode.json", newData, (err) => {
-            if (err) throw err;
-            console.log("New data added");
-        });
-    })
+Color_Input_Button3.addEventListener('click', () => {
+    data = {
+        "TITLE": "COLOR",
+        "MODE": 3,
+        "RED": REDslider_Value3,
+        "GREEN": Greenslider_Value3,
+        "BLUE": Blueslider_Value3
+    }
+    whatWrite(data)
+    SettingData.mode3 = {
+        "RED": REDslider_Value3,
+        "GREEN": Greenslider_Value3,
+        "BLUE": Blueslider_Value3
+    }
+    let newData = JSON.stringify(SettingData);
+    console.log(newData)
 
-    Color_Input_Button4.addEventListener('click', () => {
-        data = {
-            "RED": REDslider_Value4,
-            "GREEN": Greenslider_Value4,
-            "BLUE": Blueslider_Value4
-        }
-        whatWrite(data)
-        SettingData.mode4 = data
-        let newData = JSON.stringify(SettingData);
-        console.log(newData)
+    fs.writeFileSync("./settings/mode.json", newData, (err) => {
+        if (err) throw err;
+        console.log("New data added");
+    });
+})
 
-        fs.writeFileSync("./settings/mode.json", newData, (err) => {
-            if (err) throw err;
-            console.log("New data added");
-        });
-    }) */
 
+
+
+// to close the app
 CLOSE_BUTTON.addEventListener('click', () => {
     ipc.sendSync('close', "close_app");
 })
 
+// to send data trough PORT choose
 function whatWrite(message) {
     const jsonStr = JSON.stringify(message);
     port.write(`${jsonStr}\n`, (err) => {
@@ -246,6 +280,7 @@ function whatWrite(message) {
 
 }
 
+// set up web server, that is in local network
 app.get('/', (req, res, next) => {
     res.send("Hello world! Lala Seth is here!");
 });
@@ -257,7 +292,5 @@ app.get('/LED_COLOR/:id', (req, res, next) => {
 let server = app.listen(4000, function() {
     console.log('Express server listening on port ' + server.address().port);
 });
-module.exports = app;
 
-// Set a timeout that will check for new serialPorts every 2 seconds.
-// This timeout reschedules itself.
+module.exports = app;

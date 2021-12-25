@@ -1,1 +1,1 @@
-{"title":"Strip led modes","mode1":{"RED":"137","GREEN":"65","BLUE":"0"},"mode2":{"RED":"255","GREEN":"123","BLUE":"0"},"mode3":{"RED":"255","GREEN":"123","BLUE":"0"},"mode4":{"RED":"255","GREEN":"123","BLUE":"0"},"opacity":"74"}
+{"title":"Strip led modes","mode1":{"RED":"40","GREEN":"45","BLUE":"255"},"mode2":{"RED":"62","GREEN":"170","BLUE":"255"},"mode3":{"RED":"145","GREEN":"47","BLUE":"255"},"mode4":{"RED":"255","GREEN":"123","BLUE":"0"},"opacity":"84","PORT":2}
