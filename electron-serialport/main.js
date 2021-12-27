@@ -21,6 +21,7 @@ function createWindow() {
         autoHideMenuBar: true,
         transparent: true,
         frame: false,
+        icon: __dirname + '/icon.ico',
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false, // workaround to allow use with Electron 12+

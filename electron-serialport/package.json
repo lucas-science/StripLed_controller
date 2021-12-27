@@ -1,16 +1,29 @@
 {
     "name": "electron-test",
     "version": "1.0.2",
-    "description": "A minimal Electron application with node serialport",
+    "description": "application to control strip led",
     "main": "main.js",
     "scripts": {
         "start": "electron .",
         "install": "electron-rebuild",
-        "package-win": "electron-packager ."
+        "package-win": "electron-packager .",
+        "build-installer": "electron-builder"
     },
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:serialport/electron-serialport.git"
+    "build": {
+        "appId": "cool-app",
+        "win": {
+            "target": [
+                "nsis"
+            ],
+            "icon": "img/icon.ico"
+        },
+        "nsis": {
+            "installerIcon": "img/icon.ico",
+            "uninstallerIcon": "img/icon.ico",
+            "uninstallDisplayName": "LED controller",
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true
+        }
     },
     "keywords": [
         "Electron",
@@ -24,13 +37,15 @@
     "devDependencies": {
         "electron": "^13.6.1",
         "electron-packager": "^15.4.0",
-        "electron-rebuild": "^2.3.5"
+        "electron-rebuild": "^2.3.5",
+        "electron-builder": "^22.14.5"
     },
     "dependencies": {
         "express": "^4.17.1",
         "fs": "0.0.1-security",
+        "path": "^0.12.7",
         "serialport": "^9.2.0",
         "tableify": "^1.1.0"
     },
-    "productName": "Electron tutorial app"
+    "productName": "LED controller"
 }
