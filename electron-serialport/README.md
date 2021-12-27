@@ -1,41 +1,32 @@
-# electron-serialport
-An example of how to use serialport in an electron app
+# The application
 
-**Clone and run for a quick way to see Electron and Serialport in action.**
+### Head line of the application
 
-This is a minimal Electron application based on the [Quick Start Guide](http://electron.atom.io/docs/tutorial/quick-start) within the Electron documentation.
+This application is a deskstop application that control the control box, and give to it many data like : colors, opacity, etc.
+With this application we can set up 3 differents modes with personalize colors for each one. At each mode we can give **R**ed, **G**reen and **B**lue value, to have customize colors. We can even change the opacity of the strip led.
 
-**Use this app along with the [Electron API Demos](http://electron.atom.io/#get-started) app for API code examples to help you get started.**
+![image](https://user-images.githubusercontent.com/52750644/147503219-aa6bd22c-f056-4011-9a28-40a04f033e39.png)
 
-A basic Electron application needs just these files:
+To finish we can select the port with that we will communicate, this port is where the microcontroller is connected.
 
-- `package.json` - Points to the app's main file and lists its details and dependencies.
-- `main.js` - Starts the app and creates a browser window to render HTML. This is the app's **main process**.
-- `index.html` - A web page to render. This is the app's **renderer process**.
+![image](https://user-images.githubusercontent.com/52750644/147502709-b9446ca0-7fa8-44a9-bbd4-eba127c37fe1.png)
+![image](https://user-images.githubusercontent.com/52750644/147502719-33e90c0e-0778-4c5a-ad64-ecb64fc7caab.png)
 
-You can learn more about each of these components within the [Quick Start Guide](http://electron.atom.io/docs/tutorial/quick-start).
-
-## To Use
-
-To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
-
-```bash
-# Clone this repository
-git clone https://github.com/serialport/electron-serialport.git
-# Go into the repository
-cd electron-serialport
-# Install dependencies
-npm install
-# Run the app
-npm start
+### How it work ? 
+The application send this type of data through the serial port, to communicate with the microcontroller.
+```json
+{
+  "TITLE": "COLOR",
+  "MODE": 1,
+  "RED": "REDslider_Value1",
+  "GREEN": "Greenslider_Value1",
+  "BLUE": "Blueslider_Value1"
+}
 ```
+### The result
 
-Learn more about Electron and its API in the [documentation](http://electron.atom.io/docs/).
+<img src="https://user-images.githubusercontent.com/52750644/147503260-bebd6e38-8109-4f80-a496-88a59fb7e1ca.png" width="60%">
 
-## Other Example Apps
+<hr>
 
-For more example apps, see the
-[list of boilerplates](http://electron.atom.io/community/#boilerplates)
-created by the awesome electron community.
-
-#### License [CC0 1.0 (Public Domain)](LICENSE.md)
+Copyright © 2021 @lucas-science
