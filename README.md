@@ -10,4 +10,5 @@ In this way we can customize the strip led as we want and add many events that t
 
 
 <hr>
+
 Copyright © 2021 @lucas-science
