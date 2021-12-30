@@ -136,24 +136,15 @@ let initColor = () => {
         preview1.style = `background-color:rgba(${REDslider_Value1},${Greenslider_Value1},${Blueslider_Value1},${Opacityslider_Value/100});`
         preview2.style = `background-color:rgba(${REDslider_Value2},${Greenslider_Value2},${Blueslider_Value2},${Opacityslider_Value/100});`
         preview3.style = `background-color:rgba(${REDslider_Value3},${Greenslider_Value3},${Blueslider_Value3},${Opacityslider_Value/100});`
-            /*
-            data = {
-                "TITLE": "OPACITY",
-                "OPACITY": Opacityslider_Value
-            }
-            whatWrite(data)*/
 
         SettingData.opacity = Opacityslider_Value
         let newData = JSON.stringify(SettingData);
-        console.log(newData)
 
-        fs.writeFileSync("./settings/mode.json", newData, (err) => {
+        fs.writeFileSync("./mode.json", newData, (err) => {
             if (err) throw err;
             console.log("New data added");
         });
     }
-
-
 
     /**
      * Send data of each mode trough PORT
@@ -162,6 +153,7 @@ let initColor = () => {
     Color_Input_Button1.addEventListener('click', () => {
         data = {
             "TITLE": "COLOR",
+            "OPACITY": Opacityslider_Value,
             "MODE": 1,
             "RED": REDslider_Value1,
             "GREEN": Greenslider_Value1,
@@ -185,6 +177,7 @@ let initColor = () => {
     Color_Input_Button2.addEventListener('click', () => {
         data = {
             "TITLE": "COLOR",
+            "OPACITY": Opacityslider_Value,
             "MODE": 2,
             "RED": REDslider_Value2,
             "GREEN": Greenslider_Value2,
@@ -208,6 +201,7 @@ let initColor = () => {
     Color_Input_Button3.addEventListener('click', () => {
         data = {
             "TITLE": "COLOR",
+            "OPACITY": Opacityslider_Value,
             "MODE": 3,
             "RED": REDslider_Value3,
             "GREEN": Greenslider_Value3,
